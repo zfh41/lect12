@@ -31,6 +31,10 @@ def emit_all_oauth_users(channel):
     all_users = [ \
         user.name for user \
         in db.session.query(models.AuthUser).all()]
+    
+    for user in all_users:
+        print(user)
+    
         
     socketio.emit(channel, {
         'allUsers': all_users
@@ -78,8 +82,8 @@ def on_new_twitter_user(data):
 
 @socketio.on('new google user')
 def on_new_google_user(data):
-    print("Got an event for new google user input with data:", data)
-    # TODO
+    print("Got an event for new google user input with data:", data['name'])
+    push_new_user_to_db(data['name'], models.AuthUserType.GOOGLE);
 
 @socketio.on('new linkedin user')
 def on_new_linkedin_user(data):

@@ -15,8 +15,8 @@ export function Content() {
     
     function getAllAccounts() {
         React.useEffect(() => {
-            Socket.on('accounts received', (data) => {
-                let allAccounts = data['allAccounts'];
+            Socket.on('users updated', (data) => {
+                let allAccounts = data['allUsers'];
                 console.log("Received accounts from server: " + allAccounts);
                 setAccounts(allAccounts);
             })
@@ -34,8 +34,9 @@ export function Content() {
             <FacebookButton />
             <InstagramButton />
             <GoogleButton />
-            <TwitterButton />
-            <LinkedinButton />
+            <ul>{accounts.map((account, index) => <li>{account}</li>)}
+            </ul>
         </div>
+        
     );
 }
